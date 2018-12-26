@@ -2,9 +2,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 // 解决手机不同的默认样式css库
-import './assets/reset.css'
+import 'styles/reset.css'
 // 解决手机一边框问题css库
-import './assets/border.css'
+
+// 配置了webpack,把styles变成了src/assets/styles
+import 'styles/border.css'
+import 'styles/iconfont.css'
 import fastClick from 'fastclick'
 
 // 移动端点击事件300ms延迟,绑定到body上

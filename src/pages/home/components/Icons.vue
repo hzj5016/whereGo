@@ -1,16 +1,10 @@
 <template>
   <div class="icons">
-    <swiper>
-      <swiper-slide class="">
-        <div class="icon" v-for="item in iconList" :key="item.id">
+    <swiper :options="swiperOption">
+      <swiper-slide v-for="(page,index) in pages" :key="index">
+        <div class="icon" v-for="item in page" :key="item.id">
           <div class="img-wrapper"><img class="img-content" :src="item.imgUrl"></div>
           <p class="icon-des">{{item.des}}</p>
-        </div>
-      </swiper-slide>
-      <swiper-slide class="">
-        <div class="icon">
-          <div class="img-wrapper"><img class="img-content" src="http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png"></div>
-          <p class="icon-des">景点门票</p>
         </div>
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
@@ -23,6 +17,10 @@ export default {
   name: 'HomeIcons',
   data () {
     return {
+      swiperOption: {
+        // 轮播不自动播放
+        autoplay: false
+      },
       iconList: [
         {
           id: '001',
@@ -63,14 +61,33 @@ export default {
           id: '008',
           imgUrl: `http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png`,
           des: '景点门票'
+        },
+        {
+          id: '009',
+          imgUrl: `http://img1.qunarzz.com/piao/fusion/1803/95/f3dd6c383aeb3b02.png`,
+          des: '景点门票'
         }
       ]
+    }
+  },
+  computed: {
+    pages () {
+      const pages = []
+      this.iconList.forEach((item, index) => {
+        const page = Math.floor(index / 8)
+        if (!pages[page]) {
+          pages[page] = []
+        }
+        pages[page].push(item)
+      })
+      return pages
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
+@import '~styles/mixin.styl'
 .icons >>> .swiper-container
   height: 0
   padding-bottom: 50%
@@ -103,4 +120,5 @@ export default {
     height: .44rem
     color: #333
     text-align: center
+    ellipsis()
 </style>

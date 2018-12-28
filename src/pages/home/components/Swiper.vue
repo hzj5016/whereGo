@@ -16,6 +16,8 @@ export default {
   data () {
     return {
       swiperOption: {
+        // 翻页时间间隔
+        autoplay: 3000,
         pagination: '.swiper-pagination',
         loop: true
       },

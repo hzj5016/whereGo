@@ -19,7 +19,8 @@ export default {
     return {
       swiperOption: {
         // 轮播不自动播放
-        autoplay: false
+        autoplay: false,
+        pagination: '.swiper-pagination'
       },
       iconList: [
         {

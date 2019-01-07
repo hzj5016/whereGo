@@ -2,7 +2,7 @@
   <div>
     <div class="recommend-title">猜你喜欢</div>
     <ul>
-      <li class="item border-bottom" v-for="item in recommendList" :key="item.id">
+      <li class="item border-bottom" v-for="item in list" :key="item.id">
         <img class="item-img" :src="item.imgUrl">
         <div class="item-info">
           <p class="item-title">{{item.title}}</p>
@@ -17,23 +17,8 @@
 <script>
 export default {
   name: 'HomeRecommend',
-  data () {
-    return {
-      recommendList: [
-        {
-          id: '001',
-          imgUrl: 'http://img1.qunarzz.com/sight/p0/201403/07/30b534b0de51ccac2906bcb6ba159988.jpg_200x200_2f08733b.jpg',
-          title: '长隆野生动物世界',
-          desc: '广东省广州市番禺区迎宾路长隆旅游度假村旁'
-        },
-        {
-          id: '002',
-          imgUrl: 'http://img1.qunarzz.com/sight/p0/201403/07/30b534b0de51ccac2906bcb6ba159988.jpg_200x200_2f08733b.jpg',
-          title: '长隆野生动物世界',
-          desc: '广东省广州市番禺区迎宾路长隆旅游度假村旁'
-        }
-      ]
-    }
+  props: {
+    list: Array
   }
 }
 </script>
@@ -41,7 +26,6 @@ export default {
 <style lang="stylus" scoped>
 @import '~styles/mixin.styl'
 .recommend-title
-  margin-top: .1rem
   line-height: .8rem
   background: #eee
   text-indent: .2rem

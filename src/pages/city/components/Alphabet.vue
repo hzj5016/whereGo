@@ -1,6 +1,15 @@
 <template>
   <div class="list">
-    <div class="item" v-for="(item,key) in cities" :key="key">{{key}}</div>
+    <div class="item"
+    v-for="item in letters"
+    :key="item"
+    @click="handleLetterClick"
+    @touchstart="handleTouchStart"
+    @touchmove="handleTouchMove"
+    @touchend="handleTouchEnd"
+    :ref="item"
+    >
+    {{item}}</div>
   </div>
 </template>
 
@@ -9,6 +18,43 @@ export default {
   name: 'CityAlphabet',
   props: {
     cities: Object
+  },
+  data () {
+    return {
+      touchState: false
+    }
+  },
+  computed: {
+    letters () {
+      const letters = []
+      for (let key in this.cities) {
+        letters.push(key)
+      }
+      return letters
+    }
+  },
+  methods: {
+    handleLetterClick (e) {
+      const letter = e.target.innerText
+      this.$emit('change', letter)
+    },
+    handleTouchStart () {
+      this.touchState = true
+    },
+    handleTouchMove (e) {
+      if (this.touchState) {
+        // startY是A元素距离可视区域(已经绝对定位)最顶层的元素的高度,offsetTop是Vue提供的api
+        // startY的高度为75px
+        const startY = this.$refs['A'][0].offsetTop
+        // 这个clientY是距离最顶部的高度,相对窗口而言,和offsetTop有时候不同
+        const touchY = e.touches[0].clientY - 78.5
+        const distance = touchY - startY
+        console.log(touchY)
+      }
+    },
+    handleTouchEnd () {
+      this.touchState = false
+    }
   }
 }
 </script>

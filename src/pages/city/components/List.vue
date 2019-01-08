@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="area" v-for="(item,key) in cities" :key="key">
+      <div class="area" v-for="(item,key) in cities" :key="key" :ref="key">
         <div class="title border-topbottom">{{key}}</div>
         <div class="item-list" v-for="innerItem in item" :key="innerItem.id">
           <div class="item border-bottom">{{innerItem.name}}</div>
@@ -33,7 +33,18 @@ export default {
   name: 'CityList',
   props: {
     cities: Object,
-    hotCities: Array
+    hotCities: Array,
+    letter: String
+  },
+  watch: {
+    // letter发生变化
+    letter () {
+      if (this.letter) {
+        // domElement是个数组,并不是个dom元素,它的长度为1,第一个元素就是对应的dom元素
+        const domElement = this.$refs[this.letter]
+        this.scroll.scrollToElement(domElement[0], 700)
+      }
+    }
   },
   mounted () {
     // ref可以获取当前vue实例的dom元素
